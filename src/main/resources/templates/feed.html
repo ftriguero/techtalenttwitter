@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:insert="fragments/header">
+</head>    
+<body>
+	<div class="container">
+	    <div th:replace="fragments/navbar"></div>
+	    <ul class="nav nav-tabs">
+	    	<li role="presentation" th:classappend="${filter == 'all' ? 'active': '' }">
+	    		<a href="/tweets">All</a>
+	    	</li>
+	    	<li role="presentation" th:classappend="${filter == 'following' ? 'active': ''}">
+	    		<a href="/tweets?filter=following">Following</a>
+	    	</li>
+	    
+	    </ul>
+		<br/>
+		<div th:if="${not #lists.isEmpty(tweetList)}">
+	    	<h3>Tweets</h3>
+	    </div>
+	    <div th:if="${#lists.isEmpty(tweetList) and filter =='all'}">
+	    	<h3>No tweets have been created</h3>
+	    </div>
+	     <div th:if="${#lists.isEmpty(tweetList) and filter =='following'}">
+	    	<h3>No tweets have been created by anybody you are following</h3>
+	    </div>			
+		<div class="list-group" th:each="tweet:${tweetList}">
+			<div class="list-group-item list-group-item-action">
+				<div class="d-flex w-100 justify-content-between">
+					<h5>@<span th:text="${tweet.user.username}"></span>
+					<small th:text="${tweet.date}"></small>					
+					</h5>
+				</div>
+				<p class="mb-1" th:utext="${tweet.message}"></p>
+			</div>
+		</div>	
+	</div>
+</body>
+</html>

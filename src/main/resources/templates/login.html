@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:insert="fragments/header">
+</head>      
+<body>
+	<div class="container">
+	    <div th:replace="fragments/navbar"></div>
+		<h2>Welcome</h2>
+		<form th:action="@{/login}" method="post">
+			<input type="text" id="username" name="username" th:placeholder="Username" class="form-control"/>
+			<br/>
+			<input type="password" id="password" name="password" th:placeholder="Password" class="form-control"/>
+			<br/>
+			<div align="center" th:if="${param.error}">
+				<h4 style="color: red">Login unsuccessful.</h4>
+			</div>
+			<button class="btn btn-md btn-success btn-block" name="Submit" value="Login" type ="Submit">
+			Log in
+			</button>
+		</form>
+		<form th:action="@{/signup}" method="get">
+			<button class="btn btn-md btn success btn-block" name="Signup" value="Signup" type="Submit">
+			Sign up
+			</button>
+		</form>
+	</div>
+</body>      
+</html>
